@@ -25,7 +25,7 @@ $(document).ready(function () {
   });
 
   // gallery
-  gsap.set(".photo:not(:first-child)", { opacity: 0, scale: 0.5 });
+  gsap.set(".photo:not(:first-child)", { opacity: 0, scale: 0 });
   const animation = gsap.to(".photo:not(:first-child)", {
     opacity: 1,
     scale: 1,
