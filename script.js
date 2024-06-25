@@ -4,11 +4,11 @@ $(document).ready(function () {
 
   function getScrollAmount() {
     let racesWidth = testimonial[0].scrollWidth;
-    return -(racesWidth - window.innerWidth);
+    return racesWidth - window.innerWidth + 200;
   }
 
   const tween = gsap.to(testimonial, {
-    x: getScrollAmount,
+    x: -getScrollAmount(),
     duration: 3,
     ease: "none",
   });
@@ -16,7 +16,7 @@ $(document).ready(function () {
   ScrollTrigger.create({
     trigger: ".wrapper-testimonial",
     start: "top 10%",
-    end: () => `+=${getScrollAmount() * -1}`,
+    end: () => `+=${getScrollAmount()}`,
     pin: true,
     animation: tween,
     scrub: 1,
