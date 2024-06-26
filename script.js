@@ -1,3 +1,33 @@
+gsap.registerPlugin(ScrollTrigger);
+
+$(window).on("load", function () {
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".wrapper",
+        start: "top top",
+        end: "+=150%",
+        pin: true,
+        scrub: true,
+        markers: true,
+      },
+    })
+    .to(".image-container img", {
+      scale: 2,
+      z: 350,
+      transformOrigin: "center center",
+      ease: "power1.inOut",
+    })
+    .to(
+      ".banner-hero",
+      {
+        scale: 1.1,
+        transformOrigin: "center center",
+        ease: "power1.inOut",
+      },
+      "<"
+    );
+});
 $(document).ready(function () {
   const testimonial = $(".testimonial");
   console.log(testimonial[0].offsetWidth);

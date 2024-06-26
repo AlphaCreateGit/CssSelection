@@ -46,6 +46,46 @@ body {
 .spacing-100vh {
   height: 100vh;
 }
+.banner {
+  overflow: hidden;
+}
+.banner .wrapper,
+.banner .content {
+  position: relative;
+  z-index: 1;
+}
+.banner .content {
+  overflow: hidden;
+}
+.banner .section {
+  width: 100%;
+  height: 100vh;
+}
+.banner .banner-hero {
+  width: 100%;
+  height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1549880181-56a44cf4a9a5?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.banner .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  perspective: 500px;
+  overflow: hidden;
+}
+.banner .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 .list {
   transform-style: preserve-3d;
   transform: perspective(1000px);
