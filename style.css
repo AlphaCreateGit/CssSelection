@@ -194,3 +194,39 @@ body {
   z-index: 2;
   transition: all 0.6s;
 }
+.gui-top-left {
+  position: absolute;
+  top: 50px;
+  left: 100px;
+  width: 350px;
+  height: 55%;
+  background-color: black;
+  transition: all 0.6s;
+}
+.gui-bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 100px;
+  width: 350px;
+  height: 150px;
+  background-color: black;
+  transition: all 0.6s;
+}
+.gui-top-right {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  width: 350px;
+  height: 55%;
+  background-color: black;
+  transition: all 0.6s;
+}
+.gui-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 100px;
+  width: 350px;
+  height: 150px;
+  background-color: black;
+  transition: all 0.6s;
+}

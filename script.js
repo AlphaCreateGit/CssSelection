@@ -55,7 +55,8 @@ $(document).ready(function () {
     },
   });
   gsap.to(".gui-wrapper", {
-    clipPath: " polygon(40% 20%, 60% 20%, 60% 80%, 40% 80%)",
+    // clipPath: " polygon(40% 20%, 60% 20%, 60% 80%, 40% 80%)",
+    clipPath: " polygon(35% 20%, 65% 20%, 65% 80%, 35% 80%)",
     scrollTrigger: {
       trigger: ".gui",
       start: "top top",
@@ -72,6 +73,38 @@ $(document).ready(function () {
   });
   gsap.to(".gui-top-center", {
     height: "100px",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
+  });
+  gsap.to(".gui-top-left", {
+    top: "0px",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
+  });
+  gsap.to(".gui-top-right", {
+    top: "0px",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
+  });
+  gsap.to(".gui-bottom-left", {
+    height: "250px",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
+  });
+  gsap.to(".gui-bottom-right", {
+    height: "250px",
     scrollTrigger: {
       trigger: ".gui",
       start: "top top",
