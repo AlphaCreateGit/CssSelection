@@ -85,6 +85,9 @@ $(document).ready(function () {
       trigger: ".gui",
       start: "top top",
       scrub: true,
+      onUpdate: (self) => {
+        console.log(self.progress, self.trigger);
+      },
     },
   });
   gsap.to(".gui-top-right", {
@@ -95,20 +98,32 @@ $(document).ready(function () {
       scrub: true,
     },
   });
+
+  // bottom left
+  $(".gui-bottom-left").css("height", "20%");
   gsap.to(".gui-bottom-left", {
-    height: "250px",
+    height: "calc(40% - 30px)",
     scrollTrigger: {
       trigger: ".gui",
       start: "top top",
       scrub: true,
+      onUpdate: (self) => {
+        console.log(self.progress, self.trigger);
+      },
     },
   });
+
+  // bottom right
+  $(".gui-bottom-right").css("height", "20%");
   gsap.to(".gui-bottom-right", {
-    height: "250px",
+    height: "calc(40% - 30px)",
     scrollTrigger: {
       trigger: ".gui",
       start: "top top",
       scrub: true,
+      onUpdate: (self) => {
+        console.log(self.progress, self.trigger);
+      },
     },
   });
 });
