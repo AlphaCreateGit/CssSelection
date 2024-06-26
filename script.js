@@ -49,7 +49,6 @@ $(document).ready(function () {
       start: "top top",
       end: "+=100%",
       pin: ".gui",
-      pinSpacing: true,
       scrub: true,
       markers: true,
     },
