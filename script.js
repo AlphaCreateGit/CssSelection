@@ -126,3 +126,24 @@ $(document).ready(function () {
     },
   });
 });
+
+// check scroll section id
+
+// $(window).on("load", function () {
+//   const hash = window.location.hash;
+//   if (hash) {
+//     const $targetElement = $(hash);
+//     if ($targetElement.length > 0) {
+//       const elementRect = $targetElement.get(0).getBoundingClientRect();
+//       const absoluteElementTop =
+//         elementRect.top + window.pageYOffset - 80;
+//       console.log(absoluteElementTop);
+//       $("html, body").animate(
+//         {
+//           scrollTop: absoluteElementTop,
+//         },
+//         "smooth"
+//       );
+//     }
+//   }
+// });
