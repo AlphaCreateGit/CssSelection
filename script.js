@@ -21,7 +21,7 @@ $(document).ready(function () {
     animation: tween,
     scrub: 1,
     invalidateOnRefresh: true,
-    markers: true,
+    // markers: true,
   });
 
   // gallery
@@ -39,6 +39,43 @@ $(document).ready(function () {
     pin: ".right",
     animation: animation,
     scrub: true,
-    markers: true,
+    // markers: true,
+  });
+  ScrollTrigger.refresh();
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to(".gui", {
+    scrollTrigger: {
+      start: "top top",
+      end: "+=100%",
+      pin: ".gui",
+      pinSpacing: true,
+      scrub: true,
+      markers: true,
+    },
+  });
+  gsap.to(".gui-wrapper", {
+    clipPath: " polygon(40% 20%, 60% 20%, 60% 80%, 40% 80%)",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
+  });
+  gsap.to(".gui-bot-center", {
+    height: "100px",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
+  });
+  gsap.to(".gui-top-center", {
+    height: "100px",
+    scrollTrigger: {
+      trigger: ".gui",
+      start: "top top",
+      scrub: true,
+    },
   });
 });
