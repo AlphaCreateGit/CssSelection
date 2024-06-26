@@ -85,9 +85,9 @@ $(document).ready(function () {
       trigger: ".gui",
       start: "top top",
       scrub: true,
-      onUpdate: (self) => {
-        console.log(self.progress, self.trigger);
-      },
+      // onUpdate: (self) => {
+      //   console.log(self.progress, self.trigger);
+      // },
     },
   });
   gsap.to(".gui-top-right", {
@@ -107,9 +107,9 @@ $(document).ready(function () {
       trigger: ".gui",
       start: "top top",
       scrub: true,
-      onUpdate: (self) => {
-        console.log(self.progress, self.trigger);
-      },
+      // onUpdate: (self) => {
+      //   console.log(self.progress, self.trigger);
+      // },
     },
   });
 
@@ -121,9 +121,9 @@ $(document).ready(function () {
       trigger: ".gui",
       start: "top top",
       scrub: true,
-      onUpdate: (self) => {
-        console.log(self.progress, self.trigger);
-      },
+      // onUpdate: (self) => {
+      //   console.log(self.progress, self.trigger);
+      // },
     },
   });
 });
