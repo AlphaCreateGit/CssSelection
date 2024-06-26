@@ -60,6 +60,8 @@ $(document).ready(function () {
       trigger: ".gui",
       start: "top top",
       scrub: true,
+      ease: "bounce.out",
+      duration: 1,
     },
   });
   gsap.to(".gui-bot-center", {
