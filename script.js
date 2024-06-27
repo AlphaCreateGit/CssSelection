@@ -155,7 +155,6 @@ function gsapGallery() {
     const right = $(section).find(".right");
     const gallery = $(section).find(".gallery");
 
-    // Thiết lập ban đầu cho các ảnh
     gsap.set(photos, { opacity: 0, scale: 0 });
 
     // Tạo animation cho các ảnh
@@ -165,6 +164,25 @@ function gsapGallery() {
       duration: 1,
       stagger: 1,
     });
+    // // Thiết lập ban đầu cho các ảnh
+    // gsap.set(photos, { opacity: 0, yPercent: 100 });
+
+    // // Tạo animation cho các ảnh
+    // let animation = gsap
+    //   .timeline()
+    //   .to(photos, {
+    //     opacity: 1,
+    //     yPercent: 0,
+    //     duration: 2,
+    //     stagger: 1,
+    //     ease: "power2.out",
+    //   })
+    //   .to(photos, {
+    //     autoAlpha: 0,
+    //     duration: 2,
+    //     stagger: 1,
+    //     ease: "power2.out",
+    //   });
 
     // Tạo ScrollTrigger cho từng section
     ScrollTrigger.create({
