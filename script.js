@@ -1,6 +1,13 @@
-gsap.registerPlugin(ScrollTrigger);
+$(document).ready(function () {
+  gsap.registerPlugin(ScrollTrigger);
+  gsapBanner();
+  gsapTestimonial();
+  gsapGui();
+  gsapGallery();
+});
 
-$(window).on("load", function () {
+function gsapBanner() {
+  gsap.registerPlugin(ScrollTrigger);
   gsap
     .timeline({
       scrollTrigger: {
@@ -9,7 +16,7 @@ $(window).on("load", function () {
         end: "+=150%",
         pin: true,
         scrub: true,
-        markers: true,
+        // markers: true,
       },
     })
     .to(".image-container img", {
@@ -27,65 +34,73 @@ $(window).on("load", function () {
       },
       "<"
     );
-});
-$(document).ready(function () {
-  const testimonial = $(".testimonial");
-  console.log(testimonial[0].offsetWidth);
+}
+function gsapTestimonial() {
+  const wrapperTestimonials = $(".wrapper-testimonial");
 
-  function getScrollAmount() {
-    let racesWidth = testimonial[0].scrollWidth;
-    return racesWidth - window.innerWidth + 200;
+  // Nếu có bất kỳ phần tử testimonial nào
+  if (wrapperTestimonials.length > 0) {
+    // Lặp qua từng phần tử wrapper
+    wrapperTestimonials.each(function (index, wrapper) {
+      const testimonial = $(wrapper).find(".testimonial");
+
+      // Hàm để tính toán lượng cuộn cần thiết
+      const getScrollAmount = () => {
+        const racesWidth = testimonial[0].scrollWidth;
+        return racesWidth - window.innerWidth + 200;
+      };
+
+      // Hàm để tạo tween animation cho testimonial
+      const createTween = (testimonial, scrollAmount) => {
+        return gsap.to(testimonial, {
+          x: -scrollAmount,
+          duration: 3,
+          ease: "none",
+        });
+      };
+
+      // Hàm để tạo ScrollTrigger cho phần tử wrapper
+      const createScrollTrigger = (wrapper, tween, scrollAmount) => {
+        ScrollTrigger.create({
+          trigger: wrapper,
+          start: "top 15%",
+          end: `+=${scrollAmount}`,
+          pin: true,
+          animation: tween,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          markers: true,
+        });
+      };
+
+      // Tính toán lượng cuộn cần thiết
+      const scrollAmount = getScrollAmount();
+      // Tạo tween animation cho testimonial
+      const tween = createTween(testimonial, scrollAmount);
+      // Tạo ScrollTrigger cho phần tử wrapper
+      createScrollTrigger(wrapper, tween, scrollAmount);
+    });
   }
+}
 
-  const tween = gsap.to(testimonial, {
-    x: -getScrollAmount(),
-    duration: 3,
-    ease: "none",
-  });
-
-  ScrollTrigger.create({
-    trigger: ".wrapper-testimonial",
-    start: "top 10%",
-    end: () => `+=${getScrollAmount()}`,
-    pin: true,
-    animation: tween,
-    scrub: 1,
-    invalidateOnRefresh: true,
-    // markers: true,
-  });
-
-  // gallery
-  gsap.set(".photo:not(:first-child)", { opacity: 0, scale: 0 });
-  const animation = gsap.to(".photo:not(:first-child)", {
-    opacity: 1,
-    scale: 1,
-    duration: 1,
-    stagger: 1,
-  });
-  ScrollTrigger.create({
-    trigger: ".gallery",
-    start: "top top",
-    end: "bottom bottom",
-    pin: ".right",
-    animation: animation,
-    scrub: true,
-    // markers: true,
-  });
-  ScrollTrigger.refresh();
-
+function gsapGui() {
   gsap.registerPlugin(ScrollTrigger);
+
+  // Thiết lập ScrollTrigger và animation cho .gui
   gsap.to(".gui", {
     scrollTrigger: {
+      trigger: ".gui",
       start: "top top",
       end: "+=100%",
       pin: ".gui",
       scrub: true,
-      markers: true,
+      // markers: true,
     },
   });
+
+  // Tạo animation cho .gui-wrapper
   gsap.to(".gui-wrapper", {
-    // clipPath: " polygon(40% 20%, 60% 20%, 60% 80%, 40% 80%)",
-    clipPath: " polygon(35% 20%, 65% 20%, 65% 80%, 35% 80%)",
+    clipPath: "polygon(35% 20%, 65% 20%, 65% 80%, 35% 80%)",
     scrollTrigger: {
       trigger: ".gui",
       start: "top top",
@@ -94,70 +109,78 @@ $(document).ready(function () {
       duration: 1,
     },
   });
-  gsap.to(".gui-bot-center", {
-    height: "100px",
-    scrollTrigger: {
-      trigger: ".gui",
-      start: "top top",
-      scrub: true,
+
+  const elements = [
+    { selector: ".gui-bot-center", properties: { height: "100px" } },
+    { selector: ".gui-top-center", properties: { height: "100px" } },
+    { selector: ".gui-top-left", properties: { top: "0px" } },
+    { selector: ".gui-top-right", properties: { top: "0px" } },
+    {
+      selector: ".gui-bottom-left",
+      css: { height: "20%" },
+      properties: { height: "calc(40% - 30px)" },
     },
-  });
-  gsap.to(".gui-top-center", {
-    height: "100px",
-    scrollTrigger: {
-      trigger: ".gui",
-      start: "top top",
-      scrub: true,
+    {
+      selector: ".gui-bottom-right",
+      css: { height: "20%" },
+      properties: { height: "calc(40% - 30px)" },
     },
-  });
-  gsap.to(".gui-top-left", {
-    top: "0px",
-    scrollTrigger: {
-      trigger: ".gui",
-      start: "top top",
-      scrub: true,
-      // onUpdate: (self) => {
-      //   console.log(self.progress, self.trigger);
-      // },
-    },
-  });
-  gsap.to(".gui-top-right", {
-    top: "0px",
-    scrollTrigger: {
-      trigger: ".gui",
-      start: "top top",
-      scrub: true,
-    },
+  ];
+
+  // Áp dụng các CSS ban đầu và tạo animation cho các phần tử khác
+  elements.forEach((el) => {
+    if (el.css) {
+      $(el.selector).css(el.css);
+    }
+
+    gsap.to(el.selector, {
+      ...el.properties,
+      scrollTrigger: {
+        trigger: ".gui",
+        start: "top top",
+        scrub: true,
+        invalidateOnRefresh: true,
+        // markers: true,
+      },
+    });
   });
 
-  // bottom left
-  $(".gui-bottom-left").css("height", "20%");
-  gsap.to(".gui-bottom-left", {
-    height: "calc(40% - 30px)",
-    scrollTrigger: {
-      trigger: ".gui",
+  // Làm mới ScrollTrigger sau khi thiết lập
+  ScrollTrigger.refresh();
+}
+function gsapGallery() {
+  // gallery
+  $(".gallery-section").each(function (index, section) {
+    const photos = $(section).find(".photo:not(:first-child)");
+    const right = $(section).find(".right");
+    const gallery = $(section).find(".gallery");
+
+    // Thiết lập ban đầu cho các ảnh
+    gsap.set(photos, { opacity: 0, scale: 0 });
+
+    // Tạo animation cho các ảnh
+    const animation = gsap.to(photos, {
+      opacity: 1,
+      scale: 1,
+      duration: 1,
+      stagger: 1,
+    });
+
+    // Tạo ScrollTrigger cho từng section
+    ScrollTrigger.create({
+      trigger: gallery,
       start: "top top",
+      end: "bottom bottom",
+      pin: right,
+      animation: animation,
       scrub: true,
-      // onUpdate: (self) => {
-      //   console.log(self.progress, self.trigger);
-      // },
-    },
+      // markers: true,
+    });
   });
 
-  // bottom right
-  $(".gui-bottom-right").css("height", "20%");
-  gsap.to(".gui-bottom-right", {
-    height: "calc(40% - 30px)",
-    scrollTrigger: {
-      trigger: ".gui",
-      start: "top top",
-      scrub: true,
-      // onUpdate: (self) => {
-      //   console.log(self.progress, self.trigger);
-      // },
-    },
-  });
-});
+  // Làm mới ScrollTrigger sau khi thiết lập
+  ScrollTrigger.refresh();
+}
 
 // check scroll section id
 
