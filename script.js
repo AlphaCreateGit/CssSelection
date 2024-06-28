@@ -4,6 +4,7 @@ $(document).ready(function () {
   gsapTestimonial();
   gsapGui();
   gsapGallery();
+  ScrollTrigger.refresh();
 });
 
 function gsapBanner() {
@@ -80,25 +81,27 @@ function gsapTestimonial() {
       // Tạo ScrollTrigger cho phần tử wrapper
       createScrollTrigger(wrapper, tween, scrollAmount);
     });
+
+    // Làm mới ScrollTrigger sau khi tất cả triggers đã được thiết lập
+    ScrollTrigger.refresh();
   }
 }
 
 function gsapGui() {
   gsap.registerPlugin(ScrollTrigger);
+  const outerHeight = $(".gui-section").outerHeight();
 
-  // Thiết lập ScrollTrigger và animation cho .gui
   gsap.to(".gui", {
     scrollTrigger: {
       trigger: ".gui",
       start: "top top",
-      end: "+=100%",
-      pin: ".gui",
+      end: `+=${outerHeight}`,
+      pin: ".gui-section",
       scrub: true,
-      // markers: true,
+      markers: true,
     },
   });
 
-  // Tạo animation cho .gui-wrapper
   gsap.to(".gui-wrapper", {
     clipPath: "polygon(35% 20%, 65% 20%, 65% 80%, 35% 80%)",
     scrollTrigger: {
@@ -127,7 +130,6 @@ function gsapGui() {
     },
   ];
 
-  // Áp dụng các CSS ban đầu và tạo animation cho các phần tử khác
   elements.forEach((el) => {
     if (el.css) {
       $(el.selector).css(el.css);
@@ -140,12 +142,10 @@ function gsapGui() {
         start: "top top",
         scrub: true,
         invalidateOnRefresh: true,
-        // markers: true,
       },
     });
   });
 
-  // Làm mới ScrollTrigger sau khi thiết lập
   ScrollTrigger.refresh();
 }
 function gsapGallery() {
