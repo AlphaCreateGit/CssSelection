@@ -96,9 +96,10 @@ function gsapGui() {
       trigger: ".gui",
       start: "top top",
       end: `+=${outerHeight}`,
-      pin: ".gui-section",
+      pin: true,
       scrub: true,
-      markers: true,
+      // markers: true,
+      // pinSpacing: false,
     },
   });
 

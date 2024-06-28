@@ -134,6 +134,7 @@ body {
 .wrapper-testimonial {
   overflow: hidden;
   padding-left: 100px;
+  height: 100vh;
 }
 .testimonial {
   width: fit-content;
