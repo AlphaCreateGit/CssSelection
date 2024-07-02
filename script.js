@@ -250,3 +250,22 @@ function gsapWink() {
 //     }
 //   }
 // });
+
+var swiper = new Swiper(".mySwiper", {
+  effect: "cards",
+  grabCursor: true,
+  loop: true,
+  speed: 400,
+  simulateTouch: false, // Tắt chức năng kéo
+  allowTouchMove: false, // Tắt chức năng di chuyển bằng cảm ứng
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  cardsEffect: {
+    perSlideOffset: 10,
+    perSlideRotate: 0,
+    slideShadows: false,
+    rotate: false,
+  },
+});
