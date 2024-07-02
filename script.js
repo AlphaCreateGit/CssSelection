@@ -4,6 +4,7 @@ $(document).ready(function () {
   gsapTestimonial();
   gsapGui();
   gsapGallery();
+  gsapWink();
   ScrollTrigger.refresh();
 });
 
@@ -70,7 +71,7 @@ function gsapTestimonial() {
           animation: tween,
           scrub: 1,
           invalidateOnRefresh: true,
-          markers: true,
+          // markers: true,
         });
       };
 
@@ -198,6 +199,34 @@ function gsapGallery() {
   });
 
   // Làm mới ScrollTrigger sau khi thiết lập
+  ScrollTrigger.refresh();
+}
+function gsapWink() {
+  gsap.registerPlugin(ScrollTrigger);
+  const outerHeight = $(".wink-section").outerHeight();
+
+  gsap.to(".wink-img", {
+    scrollTrigger: {
+      trigger: ".wink-img",
+      start: "top top",
+      end: `+=${outerHeight}`,
+      pin: true,
+      scrub: true,
+      markers: true,
+    },
+  });
+
+  gsap.to(".wink-wrapper", {
+    clipPath: " polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)",
+    scrollTrigger: {
+      trigger: ".wink-img",
+      start: "top top",
+      scrub: true,
+      ease: "bounce.out",
+      duration: 1,
+    },
+  });
+
   ScrollTrigger.refresh();
 }
 
