@@ -302,3 +302,36 @@ body {
   height: 100%;
   object-fit: cover;
 }
+
+.animation-btn {
+  height: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.animation-btn .btn {
+  display: inline-block;
+  padding: 10px 30px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+}
+.animation-btn .btn:hover {
+  color: #333;
+}
+.animation-btn .btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: red;
+  clip-path: polygon(15% 0, 30% 0, 15% 100%, 0% 100%);
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+.animation-btn .btn:hover::before {
+  clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+}
