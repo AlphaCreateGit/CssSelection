@@ -275,7 +275,7 @@ function splitText() {
   gsap.config({ trialWarn: false });
   console.clear();
   gsap.registerPlugin(ScrollTrigger, SplitText);
-  const split = new SplitText("p", { type: "lines" });
+  const split = new SplitText(".text p", { type: "lines" });
 
   split.lines.forEach((target) => {
     gsap.to(target, {
