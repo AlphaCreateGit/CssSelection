@@ -252,7 +252,7 @@ function gsapWink() {
 //   }
 // });
 
-var swiper = new Swiper(".mySwiper", {
+var swiperCards = new Swiper(".mySwiperCards", {
   effect: "cards",
   grabCursor: true,
   loop: true,
@@ -291,3 +291,48 @@ function splitText() {
     });
   });
 }
+// https://codepen.io/udovichenko/pen/LGeQae
+
+var interleaveOffset = 0.5;
+
+var swiperOptions = {
+  loop: true,
+  speed: 1000,
+  grabCursor: true,
+  watchSlidesProgress: true,
+  autoplay: {
+    delay: 3000, // Thời gian trễ giữa các slide (3000ms = 3 giây)
+    disableOnInteraction: false, // Giữ autoplay sau khi người dùng tương tác
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+  on: {
+    progress: function () {
+      var swiper = this;
+      swiper.slides.forEach(function (slide, index) {
+        var slideProgress = slide.progress;
+        var innerOffset = swiper.width * interleaveOffset;
+        var innerTranslate = slideProgress * innerOffset;
+        slide.querySelector(".slide-inner").style.transform =
+          "translate3d(" + innerTranslate + "px, 0, 0)";
+      });
+    },
+    touchStart: function () {
+      var swiper = this;
+      swiper.slides.forEach(function (slide) {
+        slide.style.transition = "";
+      });
+    },
+    setTransition: function (speed) {
+      var swiper = this;
+      swiper.slides.forEach(function (slide) {
+        slide.style.transition = speed + "ms";
+        slide.querySelector(".slide-inner").style.transition = speed + "ms";
+      });
+    },
+  },
+};
+
+var swiper = new Swiper(".swiper-container", swiperOptions);
