@@ -300,10 +300,6 @@ var swiperOptions = {
   speed: 1000,
   grabCursor: true,
   watchSlidesProgress: true,
-  autoplay: {
-    delay: 3000, // Thời gian trễ giữa các slide (3000ms = 3 giây)
-    disableOnInteraction: false, // Giữ autoplay sau khi người dùng tương tác
-  },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
