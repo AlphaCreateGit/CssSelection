@@ -377,3 +377,45 @@ body {
 .swiper-slide {
   clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
 }
+
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.text-wrapper span {
+  font-size: 3rem;
+}
+.text-wrapper span {
+  color: rgba(255, 255, 255, 0.1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(red, red);
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  animation: scrollRevel linear forwards;
+  animation-timeline: view();
+  animation-range-start: cover 30vh;
+  animation-range-end: cover 80vh;
+}
+@keyframes scrollRevel {
+  to {
+    background-size: 100% 100%;
+  }
+}
+.text {
+  max-width: 1000px;
+}
+
+.text > p > div {
+  background: linear-gradient(to right, red 50%, rgb(255, 255, 255) 50%);
+  background-size: 200% 100%;
+  background-position-x: 100%;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  line-height: 40px;
+  font-size: 30px;
+}
