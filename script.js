@@ -293,42 +293,118 @@ function splitText() {
 }
 // https://codepen.io/udovichenko/pen/LGeQae
 
+// var interleaveOffset = 0.5;
+
+// var swiper = new Swiper(".swiper-container", {
+//   // Các tùy chọn chính
+//   loop: true,
+//   speed: 1000,
+//   navigation: {
+//     nextEl: ".swiper-button-next",
+//     prevEl: ".swiper-button-prev",
+//   },
+
+// on: {
+//   progress: function (swiper, progress) {
+//     swiper.slides.forEach(function (slide, index) {
+//       var slideProgress = slide.progress;
+//       var innerOffset = swiper.width * interleaveOffset;
+//       var innerTranslate = slideProgress * innerOffset;
+//       console.log(slideProgress);
+//       slide.querySelector(".slide-inner").style.transform =
+//         "translate3d(" + innerTranslate + "px, 0, 0)";
+//     });
+//   },
+//   touchStart: function (swiper) {
+//     swiper.slides.forEach(function (slide) {
+//       slide.style.transition = "";
+//     });
+//   },
+//   setTransition: function (swiper, speed) {
+//     swiper.slides.forEach(function (slide) {
+//       slide.style.transition = speed + "ms";
+//       slide.querySelector(".slide-inner").style.transition = speed + "ms";
+//     });
+//   },
+// },
+// });
+// var interleaveOffset = 0.5;
+
+// var swiperOptions = {
+//   loop: true,
+//   speed: 1000,
+//   grabCursor: true,
+//   watchSlidesProgress: true,
+//   mousewheelControl: true,
+//   keyboardControl: true,
+//   navigation: {
+//     nextEl: ".swiper-button-next",
+//     prevEl: ".swiper-button-prev",
+//   },
+//   autoplay: {
+//     delay: 3500,
+//     disableOnInteraction: true,
+//   },
+//   effect: "custom", // Đặt effect là 'custom'
+//   transitionEffect: true, // Bật transition effect
+
+//   on: {
+//     transitionStart: function () {
+//       var previousSlide = this.slides[this.previousIndex];
+//       previousSlide.style.transform = "scale(1)";
+//       previousSlide.style.zIndex = 0;
+//     },
+//     transitionEnd: function () {
+//       var previousSlide = this.slides[this.previousIndex];
+//       previousSlide.style.transform = "";
+//       previousSlide.style.zIndex = "";
+//     },
+//   },
+// };
+
 var interleaveOffset = 0.5;
 
-var swiperOptions = {
+var swiper = new Swiper(".swiper-container", {
   loop: true,
   speed: 1000,
   grabCursor: true,
   watchSlidesProgress: true,
+  mousewheelControl: true,
+  keyboardControl: true,
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
   on: {
-    progress: function () {
-      var swiper = this;
-      swiper.slides.forEach(function (slide, index) {
-        var slideProgress = slide.progress;
+    progress: function (swiper) {
+      swiper.slides.forEach(function (slide) {
+        var slideProgress = slide.progress || 0;
         var innerOffset = swiper.width * interleaveOffset;
         var innerTranslate = slideProgress * innerOffset;
-        slide.querySelector(".slide-inner").style.transform =
-          "translate3d(" + innerTranslate + "px, 0, 0)";
+        console.log(slide.progress);
+        // Kiểm tra nếu innerTranslate không phải là NaN
+        if (!isNaN(innerTranslate)) {
+          var slideInner = slide.querySelector(".slide-inner");
+          if (slideInner) {
+            slideInner.style.transform =
+              "translate3d(" + innerTranslate + "px, 0, 0)";
+          }
+        }
       });
     },
-    touchStart: function () {
-      var swiper = this;
+    touchStart: function (swiper) {
       swiper.slides.forEach(function (slide) {
         slide.style.transition = "";
       });
     },
-    setTransition: function (speed) {
-      var swiper = this;
+    setTransition: function (swiper, speed) {
       swiper.slides.forEach(function (slide) {
         slide.style.transition = speed + "ms";
-        slide.querySelector(".slide-inner").style.transition = speed + "ms";
+        var slideInner = slide.querySelector(".slide-inner");
+        if (slideInner) {
+          slideInner.style.transition = speed + "ms";
+        }
       });
     },
   },
-};
-
-var swiper = new Swiper(".swiper-container", swiperOptions);
+});
