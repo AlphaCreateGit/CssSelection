@@ -474,7 +474,7 @@ body {
 }
 
 .gloo-text {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .gloo-text .content p {
   text-align: center;

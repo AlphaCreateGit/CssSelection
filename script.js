@@ -440,63 +440,77 @@ var swiper = new Swiper(".swiper-container", {
 
 let typeSplit;
 
-// Split the text up
-function runSplit() {
-  typeSplit = new SplitType(".split-word", {
-    types: "lines, words",
-  });
-  $(".word").append("<div class='line-mask'></div>");
-  createAnimation();
-}
+// function glooText() {
+//   gsap.registerPlugin(ScrollTrigger, SplitType);
+//   const split = new SplitType(".content p", { type: "chars" });
 
-runSplit();
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
-
-// Create staggered animation
-function createAnimation() {
-  let allMasks = $(".word")
-    .map(function () {
-      return $(this).find(".line-mask");
-    })
-    .get();
-
-  let tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".split-word",
-      start: "top center",
-      end: "bottom center",
-      scrub: 1,
-    },
-  });
-
-  tl.to(allMasks, {
-    width: "0%",
-    duration: 1,
-    stagger: 0.5,
-  });
-}
-
+//   split.chars.forEach((char) => {
+//     gsap.from(char, {
+//       opacity: 0,
+//       y: 30,
+//       rotate: Math.random() * 360 - 180,
+//       duration: 1,
+//       scrollTrigger: {
+//         trigger: char,
+//         start: "top center",
+//         end: "bottom center",
+//         scrub: 1,
+//         markers: true,
+//       },
+//     });
+//   });
+// }
 function glooText() {
   gsap.registerPlugin(ScrollTrigger, SplitType);
   const split = new SplitType(".content p", { type: "chars" });
-
-  split.chars.forEach((char) => {
-    gsap.from(char, {
-      opacity: 0,
-      y: 30,
-      rotate: Math.random() * 360 - 180,
-      duration: 1,
-      scrollTrigger: {
-        trigger: char,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-        markers: true,
-      },
-    });
+  gsap.from(split.chars, {
+    opacity: 0,
+    y: 30,
+    rotate: 35,
+    duration: 1,
+    stagger: 0.3,
+    color: "red",
+    scale: Math.random() * 360 - 180,
+    scrollTrigger: {
+      trigger: ".content p",
+      start: "top center",
+      end: "bottom center",
+      scrub: 1,
+      markers: true,
+    },
   });
 }
 
+// function glooText() {
+//   gsap.registerPlugin(ScrollTrigger, SplitType);
+//   const split = new SplitType(".content p", { type: "chars" });
+
+//   // Ban đầu các ký tự sẽ xuất hiện sẵn
+//   gsap.set(split.chars, {
+//     opacity: 1,
+//     y: 0,
+//     rotate: 0,
+//     color: "white",
+//     scale: 1,
+//   });
+
+//   split.chars.forEach((char, index) => {
+//     gsap.to(char, {
+//       opacity: 0,
+//       y: 30,
+//       rotate: 35,
+//       duration: 1,
+//       delay: index * 0.3,
+//       color: "red",
+//       scale: Math.random() * 1.5 + 0.5,
+//       scrollTrigger: {
+//         trigger: ".content p",
+//         start: "top center",
+//         end: "bottom center",
+//         scrub: 1,
+//         markers: true,
+//       },
+//     });
+//   });
+// }
 // https://codepen.io/unygvnhf-the-bold/pen/ZExZdgR
