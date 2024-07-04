@@ -274,8 +274,8 @@ var swiperCards = new Swiper(".mySwiperCards", {
 function splitText() {
   gsap.config({ trialWarn: false });
   console.clear();
-  gsap.registerPlugin(ScrollTrigger, SplitText);
-  const split = new SplitText(".text p", { type: "lines" });
+  gsap.registerPlugin(ScrollTrigger, SplitType);
+  const split = new SplitType(".text p", { type: "lines" });
 
   split.lines.forEach((target) => {
     gsap.to(target, {
@@ -408,3 +408,43 @@ var swiper = new Swiper(".swiper-container", {
     },
   },
 });
+
+let typeSplit;
+
+// Split the text up
+function runSplit() {
+  typeSplit = new SplitType(".split-word", {
+    types: "lines, words",
+  });
+  $(".word").append("<div class='line-mask'></div>");
+  createAnimation();
+}
+
+runSplit();
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
+// Create staggered animation
+function createAnimation() {
+  let allMasks = $(".word")
+    .map(function () {
+      return $(this).find(".line-mask");
+    })
+    .get();
+
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".split-word",
+      start: "top center",
+      end: "bottom center",
+      scrub: 1,
+    },
+  });
+
+  tl.to(allMasks, {
+    width: "0%",
+    duration: 1,
+    stagger: 0.5,
+  });
+}
