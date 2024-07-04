@@ -6,6 +6,7 @@ $(document).ready(function () {
   gsapGallery();
   gsapWink();
   splitText();
+  glooText();
   ScrollTrigger.refresh();
 });
 
@@ -362,7 +363,7 @@ function splitText() {
 //   },
 // };
 
-var interleaveOffset = 0.5;
+var interleaveOffset = 0.8;
 
 var swiper = new Swiper(".swiper-container", {
   loop: true,
@@ -371,6 +372,10 @@ var swiper = new Swiper(".swiper-container", {
   watchSlidesProgress: true,
   mousewheelControl: true,
   keyboardControl: true,
+  autoplay: {
+    delay: 3500,
+    disableOnInteraction: true,
+  },
   navigation: {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
@@ -406,6 +411,30 @@ var swiper = new Swiper(".swiper-container", {
         }
       });
     },
+    slideChange: function () {
+      var activeSlide = this.slides[this.activeIndex];
+      var slideInner = activeSlide.querySelector(".slide-inner");
+      if (slideInner) {
+        // Áp dụng hiệu ứng zoom vào slide hiện tại
+        slideInner.style.transform = "scale(1.1)";
+      }
+    },
+    touchMove: function () {
+      var activeSlide = this.slides[this.activeIndex];
+      var slideInner = activeSlide.querySelector(".slide-inner");
+      if (slideInner) {
+        // Áp dụng hiệu ứng zoom trong lúc touch move
+        slideInner.style.transform = "scale(1.1)";
+      }
+    },
+    // transitionEnd: function () {
+    //   var activeSlide = this.slides[this.activeIndex];
+    //   var slideInner = activeSlide.querySelector(".slide-inner");
+    //   if (slideInner) {
+    //     // Reset hiệu ứng zoom khi transition kết thúc
+    //     slideInner.style.transform = "scale(1)";
+    //   }
+    // },
   },
 });
 
@@ -448,3 +477,26 @@ function createAnimation() {
     stagger: 0.5,
   });
 }
+
+function glooText() {
+  gsap.registerPlugin(ScrollTrigger, SplitType);
+  const split = new SplitType(".content p", { type: "chars" });
+
+  split.chars.forEach((char) => {
+    gsap.from(char, {
+      opacity: 0,
+      y: 30,
+      rotate: Math.random() * 360 - 180,
+      duration: 1,
+      scrollTrigger: {
+        trigger: char,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1,
+        markers: true,
+      },
+    });
+  });
+}
+
+// https://codepen.io/unygvnhf-the-bold/pen/ZExZdgR
