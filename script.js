@@ -7,6 +7,8 @@ $(document).ready(function () {
   gsapWink();
   splitText();
   glooText();
+  someText();
+  textAnimation();
   ScrollTrigger.refresh();
 });
 
@@ -214,7 +216,7 @@ function gsapWink() {
       end: `+=${outerHeight}`,
       pin: true,
       scrub: true,
-      markers: true,
+      // markers: true,
     },
   });
 
@@ -257,7 +259,7 @@ var swiperCards = new Swiper(".mySwiperCards", {
   effect: "cards",
   grabCursor: true,
   loop: true,
-  speed: 400,
+  speed: 1200,
   simulateTouch: false, // Tắt chức năng kéo
   allowTouchMove: false, // Tắt chức năng di chuyển bằng cảm ứng
   navigation: {
@@ -265,10 +267,25 @@ var swiperCards = new Swiper(".mySwiperCards", {
     prevEl: ".swiper-button-prev",
   },
   cardsEffect: {
-    perSlideOffset: 10,
+    perSlideOffset: 12,
     perSlideRotate: 0,
     slideShadows: false,
     rotate: false,
+  },
+  on: {
+    slideChangeTransitionStart: function () {
+      // Customize the effect for a smoother transition
+      this.slides.forEach((slide) => {
+        slide.style.transition =
+          "transform 1s cubic-bezier(0.1, -0.6, 0.2, 0);";
+      });
+    },
+    slideChangeTransitionEnd: function () {
+      // Reset the effect if necessary
+      this.slides.forEach((slide) => {
+        slide.style.transition = "";
+      });
+    },
   },
 });
 
@@ -281,10 +298,10 @@ function splitText() {
   split.lines.forEach((target) => {
     gsap.to(target, {
       backgroundPositionX: 0,
-      ease: "none",
+      ease: "power2.inOut",
       scrollTrigger: {
         trigger: target,
-        markers: true,
+        // markers: true,
         scrub: 1,
         start: "top center",
         end: "bottom center",
@@ -411,22 +428,22 @@ var swiper = new Swiper(".swiper-container", {
         }
       });
     },
-    slideChange: function () {
-      var activeSlide = this.slides[this.activeIndex];
-      var slideInner = activeSlide.querySelector(".slide-inner");
-      if (slideInner) {
-        // Áp dụng hiệu ứng zoom vào slide hiện tại
-        slideInner.style.transform = "scale(1.1)";
-      }
-    },
-    touchMove: function () {
-      var activeSlide = this.slides[this.activeIndex];
-      var slideInner = activeSlide.querySelector(".slide-inner");
-      if (slideInner) {
-        // Áp dụng hiệu ứng zoom trong lúc touch move
-        slideInner.style.transform = "scale(1.1)";
-      }
-    },
+    // slideChange: function () {
+    //   var activeSlide = this.slides[this.activeIndex];
+    //   var slideInner = activeSlide.querySelector(".slide-inner");
+    //   if (slideInner) {
+    //     // Áp dụng hiệu ứng zoom vào slide hiện tại
+    //     slideInner.style.transform = "scale(1.1)";
+    //   }
+    // },
+    // touchMove: function () {
+    //   var activeSlide = this.slides[this.activeIndex];
+    //   var slideInner = activeSlide.querySelector(".slide-inner");
+    //   if (slideInner) {
+    //     // Áp dụng hiệu ứng zoom trong lúc touch move
+    //     slideInner.style.transform = "scale(1.1)";
+    //   }
+    // },
     // transitionEnd: function () {
     //   var activeSlide = this.slides[this.activeIndex];
     //   var slideInner = activeSlide.querySelector(".slide-inner");
@@ -437,8 +454,6 @@ var swiper = new Swiper(".swiper-container", {
     // },
   },
 });
-
-let typeSplit;
 
 // function glooText() {
 //   gsap.registerPlugin(ScrollTrigger, SplitType);
@@ -463,20 +478,31 @@ let typeSplit;
 function glooText() {
   gsap.registerPlugin(ScrollTrigger, SplitType);
   const split = new SplitType(".content p", { type: "chars" });
-  gsap.from(split.chars, {
+
+  gsap.set(split.chars, {
+    opacity: 1,
+    y: 0,
+    rotate: 0,
+    color: "white",
+    scale: 1,
+  });
+
+  gsap.to(split.chars, {
     opacity: 0,
     y: 30,
-    rotate: 35,
-    duration: 1,
-    stagger: 0.3,
+    rotate: 45,
+    duration: 2, // Tăng thời gian hoạt cảnh để chạy chậm hơn
+    stagger: 0.5, // Tăng độ trễ giữa các ký tự để hoạt cảnh chậm hơn
     color: "red",
-    scale: Math.random() * 360 - 180,
+    scale: 4,
     scrollTrigger: {
       trigger: ".content p",
       start: "top center",
-      end: "bottom center",
+      end: "bottom bottom",
       scrub: 1,
-      markers: true,
+      // markers: true,
+      pin: ".gloo-text",
+      pinSpacing: false, // Ghim lại phần tử mà không thêm khoảng trống
     },
   });
 }
@@ -514,3 +540,51 @@ function glooText() {
 //   });
 // }
 // https://codepen.io/unygvnhf-the-bold/pen/ZExZdgR
+
+function textAnimation() {
+  const text = new SplitType(".split-text");
+  const ghostText = new SplitType(".split-text-2");
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const tl = gsap.timeline();
+
+  tl.from(".text-container .char", {
+    filter: "blur(15px)",
+    willchange: "filter",
+    scaleY: 0.1,
+    stagger: 0.07,
+    scrollTrigger: {
+      trigger: ".text-container",
+      start: "top center",
+      end: "bottom center",
+      scrub: true,
+
+      ease: "power4.out",
+      //pin: true
+    },
+  });
+}
+
+function someText() {
+  gsap.registerPlugin(ScrollTrigger, SplitType);
+
+  // Split the text into characters
+  let splitText = new SplitType(".split", { type: "chars" });
+  let chars = splitText.chars;
+
+  // Create the animation
+  gsap.from(chars, {
+    yPercent: 130,
+    stagger: 0.05,
+    ease: "back.out",
+    duration: 1,
+    scrollTrigger: {
+      trigger: ".split",
+      start: "top 80%", // Start the animation when the top of .split reaches 80% of the viewport height
+      end: "bottom 20%", // End the animation when the bottom of .split reaches 20% of the viewport height
+      markers: true, // Add visual markers for debugging
+      toggleActions: "play reverse play reverse", // Define actions for enter, leave, enter back, and leave back
+    },
+  });
+}

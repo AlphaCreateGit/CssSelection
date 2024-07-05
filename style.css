@@ -372,6 +372,7 @@ body {
   font-size: 22px;
   font-weight: bold;
   color: #fff;
+  perspective: 1000px;
 }
 
 .mySwiperCards .swiper-slide {
@@ -406,7 +407,7 @@ body {
   }
 }
 .text {
-  max-width: 1000px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
@@ -418,8 +419,8 @@ body {
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  line-height: 40px;
-  font-size: 30px;
+  line-height: 50px;
+  font-size: 38px;
 }
 .swiper-container {
   height: calc(100vh - 120px);
@@ -474,11 +475,59 @@ body {
 }
 
 .gloo-text {
-  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+.gloo-text .content {
+  position: absolute;
+  inset: 0;
 }
 .gloo-text .content p {
-  text-align: center;
+}
+.gloo-text .content p > div {
   font-size: 7vw;
   font-weight: 700;
+  color: #fff;
+}
+
+.text-animation .paragraph {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  background: black;
+}
+.text-animation .paragraph h1 {
+  color: white;
+  font-size: 3em;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+.split-text,
+.split-text-2 {
+  font-size: 3rem;
+  max-width: 880px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.text-container {
+  padding: 80px 0;
+}
+
+.some-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.some-text .container {
+  overflow: hidden;
+  border: 1px solid white;
+  padding: 10px 10px 0 10px;
+}
+.some-text .container h1 {
+  font-size: 7vw;
   color: #fff;
 }
