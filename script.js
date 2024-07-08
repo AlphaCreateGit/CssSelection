@@ -295,20 +295,22 @@ function splitText() {
   gsap.registerPlugin(ScrollTrigger, SplitType);
   const split = new SplitType(".text p", { type: "lines" });
 
-  split.lines.forEach((target) => {
+  split.lines.forEach((target, index) => {
     gsap.to(target, {
       backgroundPositionX: 0,
       ease: "power2.inOut",
+      delay: index * 0.1, // add a delay between each line's animation
       scrollTrigger: {
         trigger: target,
-        // markers: true,
-        scrub: 1,
+        markers: true,
+        scrub: 2, // increased scrub value for smoother control
         start: "top center",
         end: "bottom center",
       },
     });
   });
 }
+
 // https://codepen.io/udovichenko/pen/LGeQae
 
 // var interleaveOffset = 0.5;
@@ -583,7 +585,7 @@ function someText() {
       trigger: ".split",
       start: "top 80%", // Start the animation when the top of .split reaches 80% of the viewport height
       end: "bottom 20%", // End the animation when the bottom of .split reaches 20% of the viewport height
-      markers: true, // Add visual markers for debugging
+      // markers: true,
       toggleActions: "play reverse play reverse", // Define actions for enter, leave, enter back, and leave back
     },
   });

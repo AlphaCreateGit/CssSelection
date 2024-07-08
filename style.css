@@ -378,6 +378,9 @@ body {
 .mySwiperCards .swiper-slide {
   clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
 }
+.mySwiperCards .swiper-slide:nth-child(n + 1) {
+  margin-bottom: -100px;
+}
 
 .text {
   display: flex;
