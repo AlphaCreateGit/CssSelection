@@ -295,22 +295,20 @@ function splitText() {
   gsap.registerPlugin(ScrollTrigger, SplitType);
   const split = new SplitType(".text p", { type: "lines" });
 
-  split.lines.forEach((target, index) => {
+  split.lines.forEach((target) => {
     gsap.to(target, {
       backgroundPositionX: 0,
       ease: "power2.inOut",
-      delay: index * 0.1, // add a delay between each line's animation
       scrollTrigger: {
         trigger: target,
         markers: true,
-        scrub: 2, // increased scrub value for smoother control
+        scrub: 1,
         start: "top center",
         end: "bottom center",
       },
     });
   });
 }
-
 // https://codepen.io/udovichenko/pen/LGeQae
 
 // var interleaveOffset = 0.5;
