@@ -287,11 +287,6 @@ var swiperCards = new Swiper(".mySwiperCards", {
     },
   },
 });
-$(".swiper-button-next").on("click", function () {
-  $(".swiper-slide-active").css({
-    marginLeft: "65px",
-  });
-});
 
 function splitText() {
   gsap.config({ trialWarn: false });

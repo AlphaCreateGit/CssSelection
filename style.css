@@ -380,7 +380,6 @@ body {
 }
 .mySwiperCards .swiper-slide:not(.swiper-slide-active) {
   padding: 10px 0;
-  margin-top: 45px;
 }
 .mySwiperCards .swiper-slide img {
   width: 100%;
