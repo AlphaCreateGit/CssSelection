@@ -256,7 +256,7 @@ function gsapWink() {
 // });
 
 var swiperCards = new Swiper(".mySwiperCards", {
-  effect: "cards",
+  // effect: "cards",
   grabCursor: true,
   loop: true,
   speed: 1200,
@@ -266,25 +266,20 @@ var swiperCards = new Swiper(".mySwiperCards", {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
-  cardsEffect: {
-    perSlideOffset: 12,
-    perSlideRotate: 0,
-    slideShadows: false,
-    rotate: false,
-  },
-  on: {
-    slideChangeTransitionStart: function () {
-      // Customize the effect for a smoother transition
-      this.slides.forEach((slide) => {
-        slide.style.transition =
-          "transform 1s cubic-bezier(0.1, -0.6, 0.2, 0);";
-      });
+  // cardsEffect: {
+  //   perSlideOffset: 10,
+  //   perSlideRotate: 0,
+  //   slideShadows: false,
+  //   rotate: false,
+  // },
+  effect: "creative",
+  creativeEffect: {
+    prev: {
+      shadow: true,
+      translate: [0, 0, -400],
     },
-    slideChangeTransitionEnd: function () {
-      // Reset the effect if necessary
-      this.slides.forEach((slide) => {
-        slide.style.transition = "";
-      });
+    next: {
+      translate: ["100%", 0, 0],
     },
   },
 });
@@ -295,10 +290,11 @@ function splitText() {
   gsap.registerPlugin(ScrollTrigger, SplitType);
   const split = new SplitType(".text p", { type: "lines" });
 
-  split.lines.forEach((target) => {
+  split.lines.forEach((target, index) => {
     gsap.to(target, {
       backgroundPositionX: 0,
-      ease: "power2.inOut",
+      duration: 5,
+      ease: "power4.out",
       scrollTrigger: {
         trigger: target,
         markers: true,

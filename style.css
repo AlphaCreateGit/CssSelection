@@ -374,9 +374,13 @@ body {
   color: #fff;
   perspective: 1000px;
 }
-
+.mySwiperCards .swiper-slide.swiper-slide-active {
+  clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+  /* margin-top: 0; */
+}
 .mySwiperCards .swiper-slide {
   clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+  /* margin-top: 70px; */
 }
 
 .text {
