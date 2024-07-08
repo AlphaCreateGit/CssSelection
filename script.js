@@ -256,7 +256,7 @@ function gsapWink() {
 // });
 
 var swiperCards = new Swiper(".mySwiperCards", {
-  // effect: "cards",
+  effect: "cards",
   grabCursor: true,
   loop: true,
   speed: 1200,
@@ -266,22 +266,31 @@ var swiperCards = new Swiper(".mySwiperCards", {
     nextEl: ".swiper-button-next",
     prevEl: ".swiper-button-prev",
   },
-  // cardsEffect: {
-  //   perSlideOffset: 10,
-  //   perSlideRotate: 0,
-  //   slideShadows: false,
-  //   rotate: false,
-  // },
-  effect: "creative",
-  creativeEffect: {
-    prev: {
-      shadow: true,
-      translate: [0, 0, -400],
+  cardsEffect: {
+    perSlideOffset: 10,
+    perSlideRotate: 0,
+    slideShadows: false,
+    rotate: false,
+  },
+  on: {
+    slideChangeTransitionStart: function () {
+      // Customize the effect for a smoother transition
+      this.slides.forEach((slide) => {
+        slide.style.transition = "transform 1s ease-in-out";
+      });
     },
-    next: {
-      translate: ["100%", 0, 0],
+    slideChangeTransitionEnd: function () {
+      // Reset the effect if necessary
+      this.slides.forEach((slide) => {
+        slide.style.transition = "";
+      });
     },
   },
+});
+$(".swiper-button-next").on("click", function () {
+  $(".swiper-slide-active").css({
+    marginLeft: "65px",
+  });
 });
 
 function splitText() {
@@ -399,7 +408,7 @@ var swiper = new Swiper(".swiper-container", {
         var slideProgress = slide.progress || 0;
         var innerOffset = swiper.width * interleaveOffset;
         var innerTranslate = slideProgress * innerOffset;
-        console.log(slide.progress);
+        // console.log(slide.progress);
         // Kiểm tra nếu innerTranslate không phải là NaN
         if (!isNaN(innerTranslate)) {
           var slideInner = slide.querySelector(".slide-inner");
