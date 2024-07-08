@@ -1,14 +1,14 @@
 $(document).ready(function () {
   gsap.registerPlugin(ScrollTrigger);
-  gsapBanner();
-  gsapTestimonial();
-  gsapGui();
-  gsapGallery();
+  // gsapBanner();
+  // gsapTestimonial();
+  // gsapGui();
+  // gsapGallery();
   gsapWink();
   splitText();
-  glooText();
+  // glooText();
   someText();
-  textAnimation();
+  // textAnimation();
   ScrollTrigger.refresh();
 });
 
