@@ -6,6 +6,7 @@ $(document).ready(function () {
   gsapGallery();
   gsapWink();
   splitText();
+  split();
   // glooText();
   someText();
   // textAnimation();
@@ -600,3 +601,34 @@ function someText() {
 //   //   // document.getElementById("result-date").innerHTML = str;
 //   // },
 // });
+
+function split() {
+  console.clear();
+
+  gsap.registerPlugin(SplitType, ScrollTrigger);
+
+  const split = new SplitType(".wrapper p", {
+    type: "chars",
+    wordsClass: "char",
+  });
+
+  const tl = gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: "#textSection",
+        start: "top 30%",
+        end: "+=150%",
+        pin: true,
+        scrub: true,
+        markers: true,
+      },
+    })
+    .set(
+      split.chars,
+      {
+        color: "red",
+        stagger: 0.1,
+      },
+      0.1
+    );
+}
