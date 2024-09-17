@@ -158,38 +158,43 @@ function gsapGui() {
 function gsapGallery() {
   // gallery
   $(".gallery-section").each(function (index, section) {
-    const photos = $(section).find(".photo:not(:first-child)");
+    const photos = $(section).find(".photo"); // Chọn tất cả các ảnh
     const right = $(section).find(".right");
     const gallery = $(section).find(".gallery");
+    const totalPhotos = photos.length; // Tổng số ảnh
 
-    gsap.set(photos, { opacity: 0, scale: 0 });
+    // Tạo phần tử hiển thị số thứ tự
+    const photoCounter = $(
+      '<div class="photo-counter">01/' +
+        ("0" + totalPhotos).slice(-2) +
+        "</div>"
+    );
+    $(section).append(photoCounter);
 
-    // Tạo animation cho các ảnh
-    const animation = gsap.to(photos, {
+    // Thiết lập ban đầu cho các ảnh (trừ ảnh đầu tiên)
+    gsap.set(photos.not(":first-child"), { opacity: 0, yPercent: 100 });
+
+    // Tạo animation cho các ảnh (trừ ảnh đầu tiên)
+    let animation = gsap.timeline().to(photos.not(":first-child"), {
       opacity: 1,
-      scale: 1,
-      duration: 1,
+      yPercent: 0,
+      duration: 2,
       stagger: 1,
-    });
-    // // Thiết lập ban đầu cho các ảnh
-    // gsap.set(photos, { opacity: 0, yPercent: 100 });
+      ease: "power2.out",
+      onUpdate: function () {
+        // Tính toán vị trí của ảnh hiện tại
+        let progress = animation.progress();
+        let currentIndex = Math.min(
+          Math.floor(progress * (totalPhotos - 1)) + 2, // Thêm 2 để tính cả ảnh đầu tiên
+          totalPhotos
+        );
 
-    // // Tạo animation cho các ảnh
-    // let animation = gsap
-    //   .timeline()
-    //   .to(photos, {
-    //     opacity: 1,
-    //     yPercent: 0,
-    //     duration: 2,
-    //     stagger: 1,
-    //     ease: "power2.out",
-    //   })
-    //   .to(photos, {
-    //     autoAlpha: 0,
-    //     duration: 2,
-    //     stagger: 1,
-    //     ease: "power2.out",
-    //   });
+        // Cập nhật số thứ tự của hình ảnh
+        photoCounter.text(
+          ("0" + currentIndex).slice(-2) + "/" + ("0" + totalPhotos).slice(-2)
+        );
+      },
+    });
 
     // Tạo ScrollTrigger cho từng section
     ScrollTrigger.create({
@@ -206,6 +211,7 @@ function gsapGallery() {
   // Làm mới ScrollTrigger sau khi thiết lập
   ScrollTrigger.refresh();
 }
+
 function gsapWink() {
   gsap.registerPlugin(ScrollTrigger);
   const outerHeight = $(".wink-section").outerHeight();

@@ -556,3 +556,12 @@ body {
 .white .char {
   color: #fff;
 }
+.gallery-section {
+  position: relative;
+}
+.photo-counter {
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  right: 0;
+}
