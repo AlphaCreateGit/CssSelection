@@ -158,23 +158,21 @@ function gsapGui() {
 function gsapGallery() {
   // gallery
   $(".gallery-section").each(function (index, section) {
-    const photos = $(section).find(".photo"); // Chọn tất cả các ảnh
+    const photos = $(section).find(".photo"); // Select all photos
+    const height = photos.outerHeight(true) * photos.length; // Total height of all photos
+    console.log(height);
+
     const right = $(section).find(".right");
     const gallery = $(section).find(".gallery");
-    const totalPhotos = photos.length; // Tổng số ảnh
+    const totalPhotos = photos.length; // Total number of photos
 
-    // Tạo phần tử hiển thị số thứ tự
-    const photoCounter = $(
-      '<div class="photo-counter">01/' +
-        ("0" + totalPhotos).slice(-2) +
-        "</div>"
-    );
-    $(section).append(photoCounter);
+    // Select the existing photo counter element
+    const photoCounter = $(section).find(".photo-counter");
 
-    // Thiết lập ban đầu cho các ảnh (trừ ảnh đầu tiên)
+    // Set initial opacity and position for all photos except the first one
     gsap.set(photos.not(":first-child"), { opacity: 0, yPercent: 100 });
 
-    // Tạo animation cho các ảnh (trừ ảnh đầu tiên)
+    // Create the timeline animation for all photos except the first one
     let animation = gsap.timeline().to(photos.not(":first-child"), {
       opacity: 1,
       yPercent: 0,
@@ -182,25 +180,27 @@ function gsapGallery() {
       stagger: 1,
       ease: "power2.out",
       onUpdate: function () {
-        // Tính toán vị trí của ảnh hiện tại
+        // Calculate the current index based on the animation progress
         let progress = animation.progress();
+
+        // Offset the progress slightly so the counter updates earlier
         let currentIndex = Math.min(
-          Math.floor(progress * (totalPhotos - 1)) + 2, // Thêm 2 để tính cả ảnh đầu tiên
+          Math.floor((progress + 0.25) * totalPhotos) + 1, // Adjusted the offset
           totalPhotos
         );
 
-        // Cập nhật số thứ tự của hình ảnh
+        // Update the counter display with the correct current index
         photoCounter.text(
           ("0" + currentIndex).slice(-2) + "/" + ("0" + totalPhotos).slice(-2)
         );
       },
     });
 
-    // Tạo ScrollTrigger cho từng section
+    // Create a ScrollTrigger for each section
     ScrollTrigger.create({
       trigger: gallery,
       start: "top top",
-      end: "bottom bottom",
+      end: `+=${height}`, // Use the total height of the photos
       pin: right,
       animation: animation,
       scrub: true,
@@ -208,7 +208,7 @@ function gsapGallery() {
     });
   });
 
-  // Làm mới ScrollTrigger sau khi thiết lập
+  // Refresh ScrollTrigger after the setup
   ScrollTrigger.refresh();
 }
 
