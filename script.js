@@ -156,11 +156,10 @@ function gsapGui() {
   ScrollTrigger.refresh();
 }
 function gsapGallery() {
-  // gallery
   $(".gallery-section").each(function (index, section) {
     const photos = $(section).find(".photo"); // Select all photos
-    const height = photos.outerHeight(true) * photos.length; // Total height of all photos
-    console.log(height);
+    // const height = photos.outerHeight(true) * photos.length; // Total height of all photos
+    // console.log(height);
 
     const right = $(section).find(".right");
     const gallery = $(section).find(".gallery");
@@ -169,23 +168,21 @@ function gsapGallery() {
     // Select the existing photo counter element
     const photoCounter = $(section).find(".photo-counter");
 
-    // Set initial opacity and position for all photos except the first one
-    gsap.set(photos.not(":first-child"), { opacity: 0, yPercent: 100 });
+    // Set initial opacity and position for all photos
+    gsap.set(photos, { opacity: 0, yPercent: 100 });
 
-    // Create the timeline animation for all photos except the first one
-    let animation = gsap.timeline().to(photos.not(":first-child"), {
+    // Create the timeline animation for all photos
+    let animation = gsap.timeline().to(photos, {
       opacity: 1,
       yPercent: 0,
-      duration: 2,
-      stagger: 1,
+      duration: 2, // Duration of each photo animation
+      stagger: 1, // Stagger for sequence
       ease: "power2.out",
       onUpdate: function () {
         // Calculate the current index based on the animation progress
         let progress = animation.progress();
-
-        // Offset the progress slightly so the counter updates earlier
         let currentIndex = Math.min(
-          Math.floor((progress + 0.25) * totalPhotos) + 1, // Adjusted the offset
+          Math.floor(progress * totalPhotos) + 1,
           totalPhotos
         );
 
@@ -194,17 +191,22 @@ function gsapGallery() {
           ("0" + currentIndex).slice(-2) + "/" + ("0" + totalPhotos).slice(-2)
         );
       },
+      onComplete: function () {
+        // Ensure that all photos remain visible after animation
+        gsap.set(photos, { opacity: 1, yPercent: 0 });
+      },
     });
 
     // Create a ScrollTrigger for each section
     ScrollTrigger.create({
       trigger: gallery,
       start: "top top",
-      end: `+=${height}`, // Use the total height of the photos
+      // end: `+=${height}`, // Use the total height of the photos
+      end: "bottom bottom",
       pin: right,
       animation: animation,
       scrub: true,
-      // markers: true,
+      // markers: true, // Uncomment to debug scroll positions
     });
   });
 

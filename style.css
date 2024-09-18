@@ -559,7 +559,6 @@ body {
 .gallery-section {
   position: relative;
   height: 100vh;
-  overflow: hidden;
 }
 .photo-counter {
   font-size: 40px;
