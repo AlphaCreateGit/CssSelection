@@ -556,9 +556,14 @@ body {
 .white .char {
   color: #fff;
 }
+
 .gallery-section {
   position: relative;
   height: 100vh;
+}
+.gallery-section .box {
+  position: relative;
+  overflow: ;
 }
 .photo-counter {
   font-size: 40px;
